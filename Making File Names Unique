@@ -1,4 +1,30 @@
-//js solution
+//js optimized solution
+
+/**
+ * @param {string[]} names
+ * @return {string[]}
+ */
+var getFolderNames = function(names) {
+    let dict = {};
+    
+    return names.map(v=>{
+        if(!dict[v]){
+            dict[v] = 1;
+            return v;
+        }else{
+            let temp = v+"("+dict[v]+")";
+            
+            while(dict[temp]){
+                ++dict[v];
+                temp = v+"("+dict[v]+")";
+            }
+            dict[temp] = 1;
+            return temp;
+        }
+    });
+};
+
+//js NOT solution
 
 var getFolderNames = function(names) {
     let dict = {};
@@ -19,4 +45,31 @@ var getFolderNames = function(names) {
             return temp;
         }
     });
+};
+
+
+
+//c++ solution optimized
+
+class Solution {
+public:
+    vector<string> getFolderNames(vector<string>& names) {
+        unordered_map<string,int> mp;
+        
+        for(auto &v:names){
+            if(mp.find(v)==mp.end()){
+                mp.insert({v,1});
+            }else{
+                string tmp = v+"("+to_string(mp.at(v))+")";
+                while(mp.find(tmp)!= mp.end()){
+                    ++mp.at(v);
+                    tmp = v+"("+to_string(mp.at(v))+")";
+                }
+                mp.insert({tmp,1});
+                v = tmp;
+            }
+        }
+        
+        return names;
+    }
 };
