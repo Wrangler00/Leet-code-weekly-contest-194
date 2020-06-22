@@ -1,0 +1,22 @@
+//js solution
+
+var getFolderNames = function(names) {
+    let dict = {};
+    
+    return names.map(v=>{
+        if(!dict[v]){
+            dict[v] = 1;
+            return v;
+        }else{
+            let count = 1;
+            let temp = v+"(1)";
+            
+            while(dict[temp]){
+                ++count;
+                temp = v+"("+count+")";
+            }
+            dict[temp] = 1;
+            return temp;
+        }
+    });
+};
